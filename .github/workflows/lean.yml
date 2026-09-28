@@ -12,10 +12,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: leanprover/lean-action@v1
+        env:
+          # leanchecker loads a full Mathlib environment per module; one thread keeps the
+          # GitHub runner within memory (see the lean-action README).
+          LEAN_NUM_THREADS: "1"
         with:
           use-mathlib-cache: true
           test: false
           lint: false
+          # Independent replay of every declaration of the Collatz modules through the
+          # kernel (leanchecker), in addition to the lake build.
+          leanchecker: true
+          leanchecker-args: "Collatz"
       - name: No sorry, native_decide or axiom in the sources
         run: |
           set -euo pipefail
