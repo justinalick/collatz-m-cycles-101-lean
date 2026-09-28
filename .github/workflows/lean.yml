@@ -23,7 +23,7 @@ jobs:
           # Independent replay of every declaration of the Collatz modules through the
           # kernel (leanchecker), in addition to the lake build.
           leanchecker: true
-          leanchecker-args: "Collatz"
+          leanchecker-args: "-v Collatz"
       - name: No sorry, native_decide or axiom in the sources
         run: |
           set -euo pipefail
